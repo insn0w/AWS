@@ -22,7 +22,7 @@ jobs:
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
 
-  steps:
+  #steps:
     - name: Checkout
       uses: actions/checkout@v2
 
