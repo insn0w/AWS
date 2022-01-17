@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main ]
 jobs:
+  job1:
 
   init:
     runs-on: ubuntu-latest
@@ -25,7 +26,9 @@ jobs:
         echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
-  SAST:
+ job2:
+        
+  #SAST:
    # needs: [ unit-test ]  
     runs-on: ubuntu-latest
     steps:
