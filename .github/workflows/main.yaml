@@ -20,6 +20,19 @@ jobs:
         echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
+  SAST:
+   # needs: [ unit-test ]  
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #steps:
     - name: Checkout
       uses: actions/checkout@v2
