@@ -5,33 +5,6 @@ on:
   push:
     branches: [ main ]
 jobs:
-  style:
-    needs: build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ['2.7', '3.8', '3.9']
-     #   python-version: ['3.9']        
-        exclude:
-          - os: macos-latest
-            python-version: '3.8'
-    steps:
-    - name: Check out repository code
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python --version
-        python -m pip install --upgrade pip
-        pip install pycodestyle
-    - name: Style with pycodestyle
-      run: |
-        python --version
-        pycodestyle *.py
   build:
     name: Build and Pushing the Image
     runs-on: ubuntu-latest
