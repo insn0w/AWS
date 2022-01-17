@@ -4,6 +4,11 @@ on:
   push:
     branches: [ main ]
 jobs:
+
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "An init job"
   build:
     name: Build and Pushing the Image
     runs-on: ubuntu-latest
