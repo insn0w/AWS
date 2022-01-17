@@ -4,8 +4,9 @@ on:
   push:
     branches: [ main ]
 jobs:
-  build:
-    name: Build and Pushing the Image
+  pre-build:
+    env:
+      JOB_ENVIRONMENT_VARIABLE: 'custom job environment variable for ubuntu'
     runs-on: ubuntu-latest
     steps:
     - run: echo  "The job was automatically triggered by a ${{ github.event_name }} event."
@@ -20,6 +21,12 @@ jobs:
         echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
+  style:
+    needs: pre-build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
 
         
   SAST:
