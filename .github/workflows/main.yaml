@@ -6,7 +6,7 @@ on:
     branches: [ main ]
 jobs:
   style:
-    needs: pre-build
+    needs: build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
