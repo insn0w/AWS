@@ -30,18 +30,19 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v2
   SCA:
-  #  needs: pre-build
+    needs: database-integration
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
         continue-on-error: true
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/docker@master
+        uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: nginx:latest
-          args: --file=Dockerfile
+          command: monitor
+        #  image: nginx:latest
+         # args: --file=Dockerfile
   SAST:
     needs: [ unit-test ]
     name: SonarCloud
@@ -71,20 +72,7 @@ jobs:
         env:
           POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432          
-
- # SAST:
- #   needs: [ unit-test ]  
- #   runs-on: ubuntu-latest
- #   steps:
- #   - uses: actions/checkout@v2
- #     with:
- #       # Disabling shallow clone is recommended for improving relevancy of reporting
- #       fetch-depth: 0
- #   - name: SonarCloud Scan
- #     uses: sonarsource/sonarcloud-github-action@master
- #     env:
- #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
- #       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
   #next steps:
   build:
     needs: [ SAST ]
