@@ -30,17 +30,17 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v2
   SCA:
-    needs: database-integration
+  #  needs: database-integration
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
         continue-on-error: true
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/docker@master
+        uses: snyk/actions/htm@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --file=Dockerfile
+          command: monitor
   SAST:
     needs: [ unit-test ]
     name: SonarCloud
