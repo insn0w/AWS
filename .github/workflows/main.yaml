@@ -36,11 +36,12 @@ jobs:
       - uses: actions/checkout@master
         continue-on-error: true
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/htm@master
+        uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           command: monitor
+          args: --file=Dockerfile
   SAST:
     needs: [ unit-test ]
     name: SonarCloud
