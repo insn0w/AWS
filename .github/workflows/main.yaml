@@ -4,12 +4,6 @@ on:
   push:
     branches: [ main ]
 jobs:
-  job1:
-
-  init:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "An init job"
   build:
     name: Build and Pushing the Image
     runs-on: ubuntu-latest
@@ -42,10 +36,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #steps:
-  job2:
-    runs-on: ubuntu-latest
-    steps:
-    - run: echo "An init job"
+
     - name: Checkout
       uses: actions/checkout@v2
 
