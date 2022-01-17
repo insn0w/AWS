@@ -1,41 +1,28 @@
-
 name: CI
 
 on:
   push:
     branches: [ main ]
-
 jobs:
-  
   build:
     name: Build and Pushing the Image
     runs-on: ubuntu-latest
     steps:
-       - run: echo  "The job was automatically triggered by a ${{ github.event_name }} event."
-       - run: echo  "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-       - run: echo  "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-       - run: echo "${{ secrets.PASSWORD }}"
-       - name: Print custom environment variables from ubuntu-latest
-    env:
+    - run: echo  "The job was automatically triggered by a ${{ github.event_name }} event."
+    - run: echo  "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+    - run: echo  "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+    - run: echo "${{ secrets.PASSWORD }}"
+    - name: Print custom environment variables from ubuntu-latest
+      env:
         STEP_ENVIRONMENT_VARIABLE: 'custom step environment variable for bash'
-    run: |
+      run: |
         echo "Accessing environment variables in run command"
         echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
         echo "$JOB_ENVIRONMENT_VARIABLE"
-        #echo "$STEP_ENVIRONMENT_VARIABLE"
-  SAST:
- #   needs: unit-test
-   runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 1
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        echo "$STEP_ENVIRONMENT_VARIABLE"
   #steps:
+    - name: Checkout
+      uses: actions/checkout@v2
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -73,4 +60,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         commit_message: Version updated
-
