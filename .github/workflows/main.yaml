@@ -24,13 +24,13 @@ jobs:
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
   unit-test:
-    needs: pre-build
+    needs: database-integration
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
       uses: actions/checkout@v2
   SCA:
-    needs: pre-build
+  #  needs: pre-build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
