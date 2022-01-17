@@ -43,6 +43,9 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #steps:
   job2:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "An init job"
     - name: Checkout
       uses: actions/checkout@v2
 
