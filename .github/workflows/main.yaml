@@ -28,6 +28,7 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v2
   SCA:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -39,7 +40,7 @@ jobs:
          command: monitor
         
   SAST:
-   # needs: [ unit-test ]  
+    needs: [ unit-test ]  
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
