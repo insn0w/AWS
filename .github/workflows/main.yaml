@@ -26,9 +26,9 @@ jobs:
         echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
- job2:
+
         
-  #SAST:
+  SAST:
    # needs: [ unit-test ]  
     runs-on: ubuntu-latest
     steps:
@@ -42,6 +42,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #steps:
+  job2:
     - name: Checkout
       uses: actions/checkout@v2
 
