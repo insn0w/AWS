@@ -69,8 +69,7 @@ jobs:
  #       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #next steps:
   build:
-    needs: [unit-test]
- #   needs: [SAST]
+    needs: [ SAST ]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
