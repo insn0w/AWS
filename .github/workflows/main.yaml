@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
 jobs:
-  pre-build:
+  build:
     env:
       JOB_ENVIRONMENT_VARIABLE: 'custom job environment variable for ubuntu'
     runs-on: ubuntu-latest
@@ -21,13 +21,6 @@ jobs:
         echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
-  style:
-    needs: pre-build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
         
   SAST:
    # needs: [ unit-test ]  
