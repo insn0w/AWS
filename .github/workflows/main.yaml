@@ -136,7 +136,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --severity-threshold=high
-  build:
+#  build:
     name: Build and Pushing the Image
     runs-on: ubuntu-latest
     steps:
