@@ -3,27 +3,46 @@ name: CI
 
 on:
   push:
-   branches:
-      - master
-  #  branches: [ main ]
+    branches: [ main ]
 jobs:
   
   build:
     name: Build and Pushing the Image
     runs-on: ubuntu-latest
     steps:
-    - run: echo  "The job was automatically triggered by a ${{ github.event_name }} event."
-    - run: echo  "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-    - run: echo  "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-    - run: echo "${{ secrets.PASSWORD }}"
-    - name: Print custom environment variables from ubuntu-latest
-      env:
-        STEP_ENVIRONMENT_VARIABLE: 'custom step environment variable for bash'
-      run: |
-        echo "Accessing environment variables in run command"
-        echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
-        echo "$JOB_ENVIRONMENT_VARIABLE"
-        echo "$STEP_ENVIRONMENT_VARIABLE"
+       - if: github.event_name == 'push'
+         uses: actions/checkout@v1
+       - if: github.event_name == 'pull_request'
+         uses: actions/checkout@v2
+         with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+       - name: set SonarEnv for PR
+         if: github.event_name == 'pull_request'
+         run: |
+          PR_KEY=$(echo ${GITHUB_REF} |awk -F '/' '{print$3}')
+          echo ::set-env name=SONAR_CMD::$(echo sonarqube - Dsonar.pullrequest.branch=${GITHUB_HEAD_REF} -Dsonar.pullrequest.key=${PR_KEY} -Dsonar.pullrequest.base=${GITHUB_BASE_REF})
+       - name: set SonarEnv for master
+         if: github.event_name == 'push'
+         run: echo ::set-env name=SONAR_CMD::$(echo sonarqube -Dsonar.branch.name=master)
+       - run: git --no-pager show --oneline  
+       - name: SonarCloud Scan
+         run: ./gradlew ${SONAR_CMD} -Dsonar.login=${SONAR_TOKEN} -Dsonar.github.oauth=${GITHUB_TOKEN}
+         env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       - run: echo  "The job was automatically triggered by a ${{ github.event_name }} event."
+       - run: echo  "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+       - run: echo  "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+       - run: echo "${{ secrets.PASSWORD }}"
+       - name: Print custom environment variables from ubuntu-latest
+      #env:
+       # STEP_ENVIRONMENT_VARIABLE: 'custom step environment variable for bash'
+      #run: |
+       # echo "Accessing environment variables in run command"
+        #echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
+        #echo "$JOB_ENVIRONMENT_VARIABLE"
+        #echo "$STEP_ENVIRONMENT_VARIABLE"
   SAST:
  #   needs: unit-test
     runs-on: ubuntu-latest
