@@ -41,7 +41,7 @@ jobs:
         with:
          command: monitor
   SAST:
-    needs: pre-build
+    needs: [ unit-test ]
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
