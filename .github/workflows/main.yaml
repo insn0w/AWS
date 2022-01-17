@@ -52,7 +52,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-  #steps:
+  #next steps:
   build:
     needs: [SAST]
     runs-on: ubuntu-latest
