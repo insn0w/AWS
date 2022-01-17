@@ -25,16 +25,6 @@ jobs:
 
   #steps:
 
-    - name: Set up node 
-      uses: actions/setup-node@v1
-   
-    - name: Install dependencies
-      run: npm install
-    - name: Run tests 
-      run: npm test
-    - name: Checkout
-      uses: actions/checkout@v2
-
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
