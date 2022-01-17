@@ -38,7 +38,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
          command: monitor
-  sonarcloud:
+  SAST:
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
