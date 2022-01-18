@@ -23,33 +23,30 @@ jobs:
         echo "$WORKSPACE_ENVIRONMENT_VARIABLE"
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
+        
+  database-integration:
+    needs: pre-build
+    runs-on: ubuntu-latest
+    container: node:10.18-jessie
+    services:
+      postgres:
+        image: postgres
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Connect to PostgreSQL
+        run: python --version #validate_db.py
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432  
+
+
   unit-test:
     needs: database-integration
     runs-on: ubuntu-latest
-#    steps:
-#    - name: Check out repository code
-#      uses: actions/checkout@v2
     steps:
-      -
-        name: Checkout 
-        uses: actions/checkout@v2
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/nginx:latest
+    - name: Check out repository code
+      uses: actions/checkout@v2
 
   SCA:
     needs: database-integration
@@ -78,23 +75,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
-  database-integration:
-    needs: pre-build
-    runs-on: ubuntu-latest
-    container: node:10.18-jessie
-    services:
-      postgres:
-        image: postgres
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - name: Connect to PostgreSQL
-        run: python --version #validate_db.py
-        env:
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432  
-
-
           
   #next steps:
   build:
