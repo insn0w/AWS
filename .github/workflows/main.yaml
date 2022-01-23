@@ -65,7 +65,7 @@ jobs:
           
   #next steps:
   build:
-    needs: [ unit-test, SAST ]
+    needs: [ database-integration, SAST ]
     runs-on: ubuntu-latest 
  
     steps:
