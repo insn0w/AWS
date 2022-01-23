@@ -107,6 +107,12 @@ Use GitHub Actions to build Docker Image of the application and then push the im
  
  <img src="images/build.png">
  
+ # ECR 
+ 
+ <img src="images/repo.png">
+ 
+ <img src="images/docker_image.png">
+ 
  # Installing ArgoCD in Kubernetes Cluster
  
     helm repo add argo https://argoproj.github.io/argo-helm
