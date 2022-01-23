@@ -48,22 +48,8 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v2
 
-  SCA:
-    needs: database-integration
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-        continue-on-error: true
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: monitor
-          args: --docker application/vnd.docker.distribution --file=./Dockerfile --project-name=insn0w/gitops
-
   SAST:
-    needs: [ unit-test ]
+    needs: [ database-integration ]
     name: SonarCloud
     runs-on: ubuntu-latest
     steps:
@@ -79,7 +65,7 @@ jobs:
           
   #next steps:
   build:
-    needs: [ SAST, SCA ]
+    needs: [ SAST ]
     runs-on: ubuntu-latest 
  
     steps:
