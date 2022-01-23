@@ -65,7 +65,7 @@ jobs:
           
   #next steps:
   build:
-    needs: [ SAST ]
+    needs: [ SAST, unit-test ]
     runs-on: ubuntu-latest 
  
     steps:
