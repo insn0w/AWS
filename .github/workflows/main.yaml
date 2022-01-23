@@ -48,38 +48,38 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v2
 
-  SCA:
-    needs: database-integration
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-        continue-on-error: true
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/docker@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: monitor
-          args: --file=./Dockerfile --project-name=insn0w/gitops
+#  SCA:
+#    needs: database-integration
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@master
+#        continue-on-error: true
+#      - name: Run Snyk to check for vulnerabilities
+#        uses: snyk/actions/docker@master
+#        env:
+#          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+#        with:
+#          command: monitor
+#          args: --file=./Dockerfile --project-name=insn0w/gitops
 
-  SAST:
-    needs: [ unit-test ]
-    name: SonarCloud
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#  SAST:
+#    needs: [ unit-test ]
+#    name: SonarCloud
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+#      - name: SonarCloud Scan
+#        uses: SonarSource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           
           
   #next steps:
   build:
-    needs: [ SAST ]
+   # needs: [ SAST ]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -90,7 +90,8 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_REGION }}
+ #       aws-region: ${{ secrets.AWS_REGION }}
+        aws-region: us-east-1
 
     - name: Login to Amazon ECR
       id: login-ecr
