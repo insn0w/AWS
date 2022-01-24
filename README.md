@@ -105,7 +105,7 @@ Use GitHub Actions to build Docker Image of the application and then push the im
  
  - Triggered and start building and pushing the image and updates the version of the new image.
  
- <img src="images/build.png">
+ <img src="images/flow.png">
  
  # ECR 
  
