@@ -7,7 +7,7 @@ Setting up a CI/CD workflow with GitHub Actions and ArgoCD and to deploy applica
 
 **Workflow**
 
-<img src="images/diagram.png">
+<img src="images/test.png">
 
 <img src="images/workflow.png">
 
