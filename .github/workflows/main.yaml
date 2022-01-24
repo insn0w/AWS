@@ -75,6 +75,7 @@ jobs:
           
   #next steps:
   build:
+    name: build and push
     needs: [ SAST ]
     runs-on: ubuntu-latest 
  
