@@ -9,7 +9,6 @@ Setting up a CI/CD workflow with GitHub Actions and ArgoCD and to deploy applica
 
 <img src="images/test.png">
 
-<img src="images/build_push.png">
 
 Use GitHub Actions to build Docker Image of the application and then push the image to a private ECR (Elastic Container Image) repository. And then update the version of the new image in the Helm Chart.
 
