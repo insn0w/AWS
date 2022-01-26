@@ -7,7 +7,7 @@ replicaCount: 2
 image:
   pullPolicy: IfNotPresent
   repository: 520065622224.dkr.ecr.us-east-2.amazonaws.com/gitops
-  version: main-20d1be2
+  version: 4d07e95b2240c67d749bd721c47c60970772f170
 
 imagePullSecrets: []
 nameOverride: ""
