@@ -102,11 +102,11 @@ Use GitHub Actions to build Docker Image of the application and then push the im
  
  <img src="images/secret.png">
  
- - Triggered and start building and pushing the image and updates the version of the new image.
+ - Triggered and start building and pushing the image and updates the version of the new image. Updating the version of the new image in the Values.yml file of the Helm Chart. I have used one sample Helm Chart for this demo.
  
  <img src="images/flow.png">
  
- # ECR 
+ # ECR (Elastic Container Image) repository.
  
  <img src="images/repo.png">
  
